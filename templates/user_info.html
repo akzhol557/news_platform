@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}oroz.kg - {{ user.name }}{% endblock %}
+{% block content %}
+<div class="page-header-overlay">  
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <header class="entry-header text-white">
+                    <h1 class="entry-title text-center">{{ user.username }}</h1>
+                </header><!-- .entry-header -->
+            </div><!-- .col -->
+        </div><!-- .row -->
+    </div><!-- .container -->
+</div><!-- .page-header-overlay -->
+</div><!-- .hero-content -->
+<div class="container">
+    <div class="breadcrumbs">
+        <ul class="flex flex-wrap align-items-center p-0 m-0">
+            <li><a href="{% url 'main_page' %}"><i class="fa fa-home"></i> Главная</a></li>
+            <li>{{ user.username }}</li>
+        </ul>
+    </div><!-- .breadcrumbs -->
+    <h4>Добро пожаловать {{ user.name }}</h4>  
+    <p>Имя: {{ user.name }}</p>
+    <p>Логин: {{ user.username }}</p>
+    <p>Почта: {{ user.email }}</p>
+    <p>Номер телефона: {{ user.phone_number }}</p>
+    <p><a href="{% url 'logout_profile' %}" class="btn">Выйти</a></p>
+{% endblock %}

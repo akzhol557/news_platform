@@ -1,0 +1,292 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="kg">
+<head>
+    <title>{% block title %}{% endblock %}</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+    <!-- FontAwesome CSS -->
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+
+    <!-- ElegantFonts CSS -->
+    <link rel="stylesheet" href="{% static 'css/elegant-fonts.css' %}">
+
+    <!-- themify-icons CSS -->
+    <link rel="stylesheet" href="{% static 'css/themify-icons.css' %}">
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="{% static 'css/swiper.min.css' %}">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+    <link rel="shortcut icon" href="{% static 'img/logo.png' %}" type="image/x-icon">
+
+    <style>
+        #topNubex {
+            position: fixed;
+            right: 45px;
+            bottom: 80px;
+        }
+
+        #topNubex span{
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            background-color: #19C880;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .flex-nowrap{
+            flex: nowrap !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero-content">
+        <header class="site-header">
+            <div class="top-header-bar">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12 col-lg-6 d-none d-md-flex flex-wrap justify-content-center justify-content-lg-start mb-3 mb-lg-0">
+                            <div class="header-bar-email d-flex align-items-center">
+                                <i class="fa fa-envelope"></i><a href="#">oroz.jenishbek.2003@gmail.com</a>
+                            </div><!-- .header-bar-email -->
+
+                            <div class="header-bar-text lg-flex align-items-center">
+                                <p><i class="fa fa-phone"></i>+996 776-780-472</p>
+                            </div><!-- .header-bar-text -->
+                        </div><!-- .col -->
+
+                        <div class="col-12 col-lg-6 d-flex flex-wrap justify-content-center justify-content-lg-end align-items-center">
+                            <div class="header-bar-menu">
+                                <ul class="flex justify-content-center align-items-center py-2 pt-md-0">
+                                    {% if request.user.is_authenticated %}
+                                        <li><a href="{% url 'user_info' %}">{{ request.user.username }}</a></li>
+                                        <li><a href="{% url 'logout_profile' %}">Выйти</a></li>
+                                    {% else %}
+                                        <li><a href="{% url 'registration' %}">Регистрация</a></li>
+                                        <li><a href="{% url 'login_profile' %}">Войти</a></li>
+                                    {% endif %}
+                                </ul>
+                            </div><!-- .header-bar-menu -->
+                        </div><!-- .col -->
+                    </div><!-- .row -->
+                </div><!-- .container-fluid -->
+            </div><!-- .top-header-bar -->
+
+            <div class="nav-bar p-0">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-9 col-lg-1">
+                            <div class="site-branding">
+                                <h1 class="site-title d-flex align-items-center"><a href="{% url 'main_page' %}" rel="home">ORO<span>Z</span></a></h1>
+                            </div><!-- .site-branding -->
+                        </div><!-- .col -->
+
+                        <div class="col-3 col-lg-11 flex justify-content-end align-content-center">
+                            <nav class="site-navigation w-100 flex justify-content-end align-items-center">
+                                <ul class="flex flex-column flex-lg-row justify-content-lg-end align-content-center">
+                                    <li><a href="{% url 'main_page' %}">Главная</a></li>
+                                    <li> <a href="{% url 'all_news' %}">Все новости</a></li>
+                                    <li><a href="{% url 'personal_area' %}">Личный кабинет</a></li>
+                                    <li><a href="{% url 'search_with_prametrs' %}">Расширенный поиск</a></li>
+                                    <li><a href="{% url 'about_site' %} ">О нас</a></li> 
+                                </ul>
+
+                                <div class="hamburger-menu d-lg-none">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div><!-- .hamburger-menu -->
+
+                            </nav><!-- .site-navigation -->
+                        </div><!-- .col -->
+                    </div><!-- .row -->
+                </div><!-- .container -->
+            </div><!-- .nav-bar -->
+        </header><!-- .site-header -->
+
+    {% block content %}
+
+    {% endblock content %}
+
+    <div class="clients-logo">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 flex flex-wrap justify-content-center justify-content-lg-between align-items-center">
+                    <div class="logo-wrap">
+                        <img src="{% static 'images/logo-1.png' %}" alt="">
+                    </div><!-- .logo-wrap -->
+
+                    <div class="logo-wrap">
+                        <img src="{% static 'images/logo-2.png' %}" alt="">
+                    </div><!-- .logo-wrap -->
+
+                    <div class="logo-wrap">
+                        <img src="{% static 'images/logo-3.png' %}" alt="">
+                    </div><!-- .logo-wrap -->
+
+                    <div class="logo-wrap">
+                        <img src="{% static 'images/logo-4.png' %}" alt="">
+                    </div><!-- .logo-wrap -->
+
+                    <div class="logo-wrap">
+                        <img src="{% static 'images/logo-5.png' %}" alt="">
+                    </div><!-- .logo-wrap -->
+                </div><!-- .col -->
+            </div><!-- .row -->
+        </div><!-- .container -->
+    </div><!-- .clients-logo -->
+
+    <footer class="site-footer">
+        <div class="footer-widgets">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="foot-about">
+                            <a class="foot-logo" href="#"><img src="{% static 'images/foot-logo.png' %}" alt=""></a>
+
+                            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia dese mollit anim id est laborum. </p>
+
+                            <p class="footer-copyright"><!-- Link back to Colorlib can't be     removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                        </div><!-- .foot-about -->
+                    </div><!-- .col -->
+
+                    <div class="col-12 col-md-6 col-lg-3 mt-5 mt-md-0">
+                        <div class="foot-contact">
+                            <h2>Свяжитесь с нами</h2>
+
+                            <ul>
+                                <li>Почта: oroz.jenishbek.2003@gmail.com</li>
+                                <li>Номер телефона: (+996) 776-780-472</li>
+                                <li>Адрес: 327 ул. Курманжан-датка г. Ош, Кыргызстан</li>
+                            </ul>
+                        </div><!-- .foot-contact -->
+                    </div><!-- .col -->
+
+                    <div class="col-12 col-md-6 col-lg-3 mt-5 mt-lg-0">
+                        <div class="quick-links flex flex-wrap">
+                            <h2 class="w-100">Быстрые ссылки</h2>
+
+                            <ul class="w-50">
+                                <li><a href="#">О сайте</a></li>
+                                <li><a href="#">Ресурсы </a></li>
+                                <li><a href="#">Политика и конфиденциальность</a></li>
+                                <li><a href="#">Контакты</a></li>
+                            </ul>
+
+                            <ul class="w-50">
+                                <li><a href="#">Документация</a></li>
+                                <li><a href="#">Форумы</a></li>
+                                <li><a href="#">Новости</a></li>
+                                <li><a href="#">Дата реализации</a></li>
+                            </ul>
+                        </div><!-- .quick-links -->
+                    </div><!-- .col -->
+
+                    <div class="col-12 col-md-6 col-lg-3 mt-5 mt-lg-0">
+                        <div class="follow-us">
+                            <h2>Поделитесь о нас</h2>
+
+                            <ul class="follow-us flex flex-wrap align-items-center">
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            </ul>
+                        </div><!-- .quick-links -->
+                    </div><!-- .col -->
+                </div><!-- .row -->
+            </div><!-- .container -->
+        </div><!-- .footer-widgets -->
+
+        <div class="footer-bar">
+            <div class="container">
+                <div class="row flex-wrap justify-content-center justify-content-lg-between align-items-center">
+                    <div class="col-12 col-lg-6">
+                        <div class="download-apps flex flex-wrap justify-content-center justify-content-lg-start align-items-center">
+                            <a href="#"><img src="{% static 'images/app-store.png' %}" alt=""></a>
+                            <a href="#"><img src="{% static 'images/play-store.png' %}" alt=""></a>
+                        </div><!-- .download-apps -->
+
+                    </div>
+
+                    <div class="col-12 col-lg-6 mt-4 mt-lg-0">
+                        <div class="footer-bar-nav">
+                            <ul class="flex flex-wrap justify-content-center justify-content-lg-end align-items-center">
+                                <li><a href="#"></a></li>
+                                <li><a href="#"></a></li>
+                                <li><a href="#"></a></li>
+                            </ul>
+                        </div><!-- .footer-bar-nav -->
+                    </div><!-- .col-12 -->
+                </div><!-- .row -->
+            </div><!-- .container -->
+        </div><!-- .footer-bar -->
+    </footer><!-- .site-footer -->
+    <div id="topNubex"><span><i class="fa fa-arrow-up" aria-hidden="true"></i></span></div>
+
+   
+    <script src="{% static 'ckeditor/ckeditor-init.js' %}" data-ckeditor-basepath="/static/ckeditor/ckeditor/" id="ckeditor-init-script"></script>
+    <script src="{% static 'admin/js/jquery.init.js' %}"></script>
+    <script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+    <script type='text/javascript' src='{% static "js/jquery.js" %}'></script>
+    <script type='text/javascript' src='{% static "js/swiper.min.js" %}'></script>
+    <script type='text/javascript' src='{% static "js/masonry.pkgd.min.js" %}'></script>
+    <script type='text/javascript' src='{% static "js/jquery.collapsible.min.js" %}'></script>
+    <script type='text/javascript' src='{% static "js/custom.js" %}'></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script>
+        let inputs = document.querySelectorAll('.input__file');
+        Array.prototype.forEach.call(inputs, function (input) {
+          let label = input.nextElementSibling,
+            labelVal = label.querySelector('.input__file-button-text').innerText;
+      
+          input.addEventListener('change', function (e) {
+            let name = '';
+            if (this.files && this.files.length >= 1)
+              name = this.files[0].name;
+      
+            if (name)
+              label.querySelector('.input__file-button-text').innerText = name;
+            else
+              label.querySelector('.input__file-button-text').innerText = labelVal;
+          });
+        });
+    </script>       
+    <script>
+    $(function() {
+                $(window).scroll(function() {
+                    if($(this).scrollTop() != 0) {
+                    $('#topNubex').fadeIn();
+                    } else {
+                    $('#topNubex').fadeOut();
+                    }
+                });
+                $('#topNubex').click(function() {
+                    $('body,html').animate({scrollTop:0},700);
+                });
+            });
+    
+            $(function() {
+                $('#contacts').click(function() {
+                    $('body,html').animate({scrollTop: $('body').height()},700);
+                });
+            });
+    </script>
+    
+
+</body>
+</html>
+

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %}oroz.kg - Добавление новостей{% endblock %}
+{% block content %}
+
+    <div class="page-header-overlay">  
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <header class="entry-header text-white">
+                        <h1 class="entry-title text-center">Добавление новостей</h1>
+                    </header><!-- .entry-header -->
+                </div><!-- .col -->
+            </div><!-- .row -->
+        </div><!-- .container -->
+    </div><!-- .page-header-overlay -->
+  </div><!-- .hero-content -->
+    <div class="container">
+        <div class="breadcrumbs">
+            <ul class="flex flex-wrap align-items-center p-0 m-0">
+                <li><a href="{% url 'main_page' %}"><i class="fa fa-home"></i> Главная</a></li>
+                <li><a href="{% url 'personal_area' %}">Личный кабинет</a></li>
+                <li>Добавление новостей</li>
+            </ul>
+        </div><!-- .breadcrumbs -->
+  
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+
+      <form action="{% url 'create_news' %}" enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <p><h4>Тема <span class="text-danger">*</span></h4> {{ form.title }}</p>
+                <p>
+                    <h4>Изображение <span class="text-danger">*</span></h4> 
+                    
+                    <div class="input__wrapper">
+                        {{ form.image_1 }}
+                        <label for="image_1" class="input__file-button">
+                           <span class="input__file-icon-wrapper"><i class="fa fa-file-image-o" aria-hidden="true"></i></span>
+                           <span class="input__file-button-text">Выберите изображение</span>
+                        </label>
+                     </div>
+                </p>  
+            </div>
+            <div class="col-12 col-md-6">
+                <p><h4>Выберите категории <span class="text-danger">*</span></h4> {{ form.category }}</p> 
+            </div>
+        </div>
+        <p><h4>Контент <span class="text-danger">*</span></h4> {{ form.information }}</p>
+        <p><input type="submit" class="btn btn-success d-block w-100" value="Добавить"></p>
+    </form>
+    </div><!-- .container -->
+{% endblock %}

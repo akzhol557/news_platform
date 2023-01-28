@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}oroz.kg - О сайте{% endblock %}
+{% block content %}
+<div class="page-header-overlay">  
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <header class="entry-header text-white">
+                    <h1 class="entry-title text-center">О сайте</h1>
+                </header><!-- .entry-header -->
+            </div><!-- .col -->
+        </div><!-- .row -->
+    </div><!-- .container -->
+</div><!-- .page-header-overlay -->
+</div><!-- .hero-content -->
+<div class="container">
+    <div class="breadcrumbs">
+        <ul class="flex flex-wrap align-items-center p-0 m-0">
+            <li><a href="{% url 'main_page' %}"><i class="fa fa-home"></i> Главная</a></li>
+            <li>О сайте</li>
+        </ul>
+    </div><!-- .breadcrumbs -->
+    <p>Сайт создан для учебных целях студентом Орозбек Женишбек Уулу</p>
+    <p>Телефон номера +996776780472</p>
+    <p>Почта oroz.jenishbek.2003@gmail.com</p>
+    <p>Version: v3.0 на базе MySQL с помощью python фреймворка Django</p>
+</div>
+{% endblock %}

@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% block title %}oroz.kg - Новости{% endblock %}
+{% block content %}
+{% load filters %}
+{% load static %}
+    <div class="page-header-overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <header class="entry-header">
+                        <h1 class="text-white text-center">Новости</h1>  
+                    </header><!-- .entry-header -->
+                </div><!-- .col -->
+            </div><!-- .row -->
+        </div><!-- .container -->
+    </div><!-- .page-header-overlay -->
+    </div><!-- .page-header -->
+</div><!-- .hero-content -->
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="breadcrumbs">
+                <ul class="flex flex-wrap align-items-center p-0 m-0">
+                    <li><a href="{% url 'main_page' %}"><i class="fa fa-home"></i> Главная</a></li>
+                    <li>Новости</li>
+                </ul>
+            </div><!-- .breadcrumbs -->
+        </div><!-- .col -->
+    </div><!-- .row -->
+    <div class="row">
+        <div class="col-12 col-lg-8">
+            {% if category %}
+                <h3>Новости категории {{ category.title|lower }}</h3>
+            {% endif %}
+            <div class="blog-posts">
+                
+                <div class="row mx-m-25">
+                    {% for item in news %}
+                    <div class="col-12 col-md-6 px-25">
+                        <div class="blog-post-content">
+                            <figure class="blog-post-thumbnail position-relative m-0">
+                                <a href="{% url 'open_page_news' news_id=item.id %}"><img src="{{ item.image_1.url }}" alt=""></a>
+
+                                <div class="posted-date position-absolute">
+                                    <div class="month">{{ item.date }}</div>
+                                </div>
+                            </figure><!-- .blog-post-thumbnail -->
+
+                            <div class="blog-post-content-wrap">
+                                <header class="entry-header">
+                                    <h2 class="entry-title"><a href="{% url 'open_page_news' news_id=item.id %}">{{ item.title }}</a></h2>
+
+                                    <div class="entry-meta flex align-items-center">
+                                        <div class="post-author"><a href="#">{{ item.author.name }}</a></div>
+
+                                        <div class="post-comments"><a href="#"><i class="fa fa-eye"></i> - {{ item.view }}</a></div>
+                                    </div><!-- .entry-meta -->
+                                </header><!-- .entry-header -->
+                            </div><!-- .blog-post-content-wrap -->
+                        </div><!-- .blog-post-content -->
+                    </div><!-- .col -->
+            
+                {% empty %}
+                    <div>Новостей не найдено</div>
+                {% endfor %}
+                </div><!-- .blog-posts -->
+            </div><!-- .col -->
+            {% if news.has_next or news.has_previous %}
+            <div class=" w-100 pagination flex flex-nowrap justify-content-between align-items-center">
+                <div class="col-12 col-lg-4 order-2 order-lg-1 mt-3 mt-lg-0">
+                    <ul class="flex flex-nowrap align-items-center order-2 order-lg-1 p-0 m-0">
+                        {% if news.has_previous %}
+                            <li><a href="?page={{ news.previous_page_number }}"><i class="fa fa-angle-left"></i></a></li>
+                        {% endif %}
+                        {% for i in news.paginator.page_range %}
+                            {% if news.number == i %}
+                                <li class="active"><a href="#">{{ i }}</a></li>
+                            {% else %}
+                                <li><a href="?page={{ i }}">{{ i }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if news.has_next %}
+                            <li><a href="?page={{ news.next_page_number }}"><i class="fa fa-angle-right"></i></a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div><!-- .pagination -->
+            {% endif %}
+
+        </div><!-- .col -->
+
+        <div class="col-12 col-lg-4">
+            <div class="sidebar">
+                <div class="search-widget">
+                    <form action="{% url 'search' %}" method="POST" class="flex flex-wrap align-items-center">
+                        {% csrf_token %}
+                        <input type="search" name='title' placeholder="Поиск...">
+                        <button type="submit" class="flex justify-content-center align-items-center"><i class="fa fa-search"></i></button>
+                    </form><!-- .flex -->
+                </div><!-- .search-widget -->
+
+                <div class="cat-links">
+                    <h2>Категории</h2>
+                    {% include "list_categories.html" %}
+                </div><!-- .cat-links -->
+
+                <div class="latest-courses">
+                    <h2>Послдение новости</h2>
+                    
+                    <ul class="p-0 m-0">
+                    {% for item in corusels_news %}
+                      <li class="flex flex-wrap justify-content-between align-items-start">
+                            <div class="content-wrap">
+                                <h5><a href="{% url 'open_page_news' news_id=item.id %}">{{ item.title }}</a></h5>
+                            </div><!-- .content-wrap -->
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </div><!-- .latest-courses -->
+
+                <div class="ads">
+                    <img src="{% static 'images/ads.jpg' %}" alt="">
+                </div><!-- .ads -->
+            </div><!-- .sidebar -->
+        </div><!-- .col -->
+
+    </div><!-- .row -->
+</div><!-- .container -->
+
+{% endblock %}

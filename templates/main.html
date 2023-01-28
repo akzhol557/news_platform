@@ -1,0 +1,318 @@
+{% extends 'base.html' %}
+{% block title %}oroz.kg -  Главное меню{% endblock %}
+{% block content %}
+    {% load filters %}
+    {% load static %}
+    <div class="hero-content-overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="hero-content-wrap flex flex-column justify-content-center align-items-start">
+                        <header class="entry-header">
+                            <h4>We always have fresh news</h4>
+                            <h1>The best <br/>news site!</h1>
+                        </header><!-- .entry-header -->
+
+                        <div class="entry-content">
+                            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium</p>
+                        </div><!-- .entry-content -->
+                    </div><!-- .hero-content-wrap -->
+                </div><!-- .col -->
+            </div><!-- .row -->
+        </div><!-- .container -->
+    </div><!-- .hero-content-hero-content-overlay -->
+</div><!-- .hero-content -->
+
+<section class="latest-news-events mb-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <header class="heading flex justify-content-between align-items-center">
+                    <h2 class="entry-title">Последние новости & Объявления</h2>
+                </header><!-- .heading -->
+            </div><!-- .col -->
+
+            <div class="col-12 col-lg-6">
+                <div class="featured-event-content">
+                    <figure class="event-thumbnail position-relative m-0">
+                        <a href="{% url 'open_page_news' news_id=corusels_news.0.id %}"><img src="{{ corusels_news.0.image_1.url }}" class="w-100" alt=""></a>
+
+                        <div class="posted-date position-absolute">
+                            <div class="month">{{ corusels_news.0.date }}</div>
+                        </div><!-- .posted-date -->
+                    </figure><!-- .event-thumbnail -->
+
+                    <header class="entry-header flex flex-wrap align-items-center">
+                        <h2 class="entry-title"><a href="{% url 'open_page_news' news_id=corusels_news.0.id %}">{{ corusels_news.0.title }}</a></h2>
+
+                        <div class="event-location"><i class="fa fa-map-marker"></i>40 Baria Sreet 133/2 NewYork City, US</div>
+
+                        <div class="event-duration"><i class="fa fa-calendar"></i>{{ corusels_news.0.date }}</div>
+                    </header><!-- .entry-header -->
+                </div><!-- .featured-event-content -->
+            </div><!-- .col -->
+
+            <div class="col-12 col-lg-6 mt-5 mt-lg-0">
+                {% for item in corusels_news %} 
+                <div class="event-content mb-0 flex flex-wrap justify-content-between align-content-stretch">
+                    <figure class="event-thumbnail">
+                        <a href="{% url 'open_page_news' news_id=item.id %}"><img src="{{ item.image_1.url }}" class="w-100" alt=""></a>
+                    </figure><!-- .course-thumbnail -->
+
+                    <div class="event-content-wrap">
+                        <header class="entry-header">
+                            <div class="posted-date">
+                                <i class="fa fa-calendar"></i> {{ item.date }}
+                            </div><!-- .posted-date -->
+
+                            <h2 class="entry-title"><a href="{% url 'open_page_news' news_id=item.id %}">{{ item.title }}</a></h2>
+
+                            <div class="entry-meta flex flex-wrap align-items-center">
+                                <div class="post-author"><a href="#">{{ news.1.author.name }}</a></div>
+
+                                <div class="post-comments">02 Comments  </div>
+                            </div><!-- .entry-meta -->
+                        </header><!-- .entry-header -->
+                    </div><!-- .event-content-wrap -->
+                </div><!-- .event-content -->
+                {% endfor %}
+            </div><!-- .col -->
+        </div><!-- .row -->
+    </div><!-- .container -->
+</section><!-- .latest-news-events -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-lg-8">
+            {% if category %}
+                <h3>Новости категории {{ category.title|lower }}</h3>
+            {% endif %}
+            <div class="blog-posts">
+                
+                <div class="row mx-m-25">
+                    {% for item in news %}
+                    <div class="col-12 col-md-6 px-25">
+                        <div class="blog-post-content">
+                            <figure class="blog-post-thumbnail position-relative m-0">
+                                <a href="{% url 'open_page_news' news_id=item.id %}"><img src="{{ item.image_1.url }}" alt=""></a>
+
+                                <div class="posted-date position-absolute">
+                                    <div class="month">{{ item.date }}</div>
+                                </div>
+                            </figure><!-- .blog-post-thumbnail -->
+
+                            <div class="blog-post-content-wrap">
+                                <header class="entry-header">
+                                    <h2 class="entry-title"><a href="{% url 'open_page_news' news_id=item.id %}">{{ item.title }}</a></h2>
+
+                                    <div class="entry-meta flex align-items-center">
+                                        <div class="post-author"><a href="#">{{ item.author.name }}</a></div>
+
+                                        <div class="post-comments"><a href="#"><i class="fa fa-eye"></i> - {{ item.view }}</a></div>
+                                    </div><!-- .entry-meta -->
+                                </header><!-- .entry-header -->
+                            </div><!-- .blog-post-content-wrap -->
+                        </div><!-- .blog-post-content -->
+                    </div><!-- .col -->
+            
+                {% empty %}
+                    <div>Новостей не найдено</div>
+                {% endfor %}
+                </div><!-- .blog-posts -->
+            </div><!-- .col -->
+
+            {% if news.has_next or news.has_previous  %}
+            <div class=" w-100 pagination flex flex-nowrap justify-content-between align-items-center mb-4">
+                <div class="col-12 col-lg-4 order-2 order-lg-1 mt-3 mt-lg-0">
+                    <ul class="flex flex-nowrap align-items-center order-2 order-lg-1 p-0 m-0">
+                        {% if news.has_previous %}
+                            <li><a href="?page={{ news.previous_page_number }}"><i class="fa fa-angle-left"></i></a></li>
+                        {% endif %}
+                        {% for i in news.paginator.page_range %}
+                            {% if news.number == i %}
+                                <li class="active"><a href="#">{{ i }}</a></li>
+                            {% else %}
+                                <li><a href="?page={{ i }}">{{ i }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if news.has_next %}
+                            <li><a href="?page={{ news.next_page_number }}"><i class="fa fa-angle-right"></i></a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div><!-- .pagination -->
+            {% endif %}
+
+        </div><!-- .col -->
+
+        <div class="col-12 col-lg-4 mb-3">
+            <div class="sidebar">
+                <div class="search-widget">
+                    <form action="{% url 'search' %}" method="POST" class="flex flex-wrap align-items-center">
+                        {% csrf_token %}
+                        <input type="search" name='title' placeholder="Поиск...">
+                        <button type="submit" class="flex justify-content-center align-items-center"><i class="fa fa-search"></i></button>
+                    </form><!-- .flex -->
+                </div><!-- .search-widget -->
+
+                <div class="cat-links">
+                    <h2>Категории</h2>
+                    {% include "list_categories.html" %}
+                </div><!-- .cat-links -->
+
+                <div class="latest-courses">
+                    <h2>Последние новости</h2>
+                    
+                    <ul class="p-0 m-0">
+                    {% for item in corusels_news %}
+                      <li class="flex flex-wrap justify-content-between align-items-start">
+                            <div class="content-wrap">
+                                <h5><a href="{% url 'open_page_news' news_id=item.id %}">{{ item.title }}</a></h5>
+                            </div><!-- .content-wrap -->
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </div><!-- .latest-courses -->
+
+                <div class="ads">
+                    <img src="{% static 'images/ads.jpg' %}" alt="">
+                </div><!-- .ads -->
+            </div><!-- .sidebar -->
+        </div><!-- .col -->
+        <div class="col-12 px-25 flex justify-content-center">
+            <a class="btn d-block w-100" href="{% url 'all_news' %}">Смотреть все новости</a>
+        </div><!-- .col -->
+    </div><!-- .row -->
+</div><!-- .container -->
+
+<section class="testimonial-section">
+    <!-- Swiper -->
+    <div class="swiper-container testimonial-slider">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-lg-6 order-2 order-lg-1 flex align-items-center mt-5 mt-lg-0">
+                            <figure class="user-avatar">
+                                <img src="{% static 'images/user-1.jpg' %}" alt="">
+                            </figure><!-- .user-avatar -->
+                        </div><!-- .col -->
+
+                        <div class="col-12 col-lg-6 order-1 order-lg-2 content-wrap h-100">
+                            <div class="entry-content">
+                                <p>Together as teachers, students and universities we can help make this education available for everyone.</p>
+                            </div><!-- .entry-content -->
+
+                            <div class="entry-footer">
+                                <h3 class="testimonial-user">Russell Stephens - <span>University in UK</span></h3>
+                            </div><!-- .entry-footer -->
+                        </div><!-- .col -->
+                    </div><!-- .row -->
+                </div><!-- .container -->
+            </div><!-- .swiper-slide -->
+
+            <div class="swiper-slide">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-lg-6 order-2 order-lg-1 flex align-items-center mt-5 mt-lg-0">
+                            <figure class="user-avatar">
+                                <img src="{% static 'images/user-2.jpg' %}" alt="">
+                            </figure><!-- .user-avatar -->
+                        </div><!-- .col -->
+
+                        <div class="col-12 col-lg-6 order-1 order-lg-2 content-wrap h-100">
+                            <div class="entry-content">
+                                <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                            </div><!-- .entry-content -->
+
+                            <div class="entry-footer">
+                                <h3 class="testimonial-user">Robert Stephens - <span>University in Oxford</span></h3>
+                            </div><!-- .entry-footer -->
+                        </div><!-- .col -->
+                    </div><!-- .row -->
+                </div><!-- .container -->
+            </div><!-- .swiper-slide -->
+
+            <div class="swiper-slide">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-lg-6 flex order-2 order-lg-1 align-items-center mt-5 mt-lg-0">
+                            <figure class="user-avatar">
+                                <img src="{% static 'images/user-3.jpg' %}" alt="">
+                            </figure><!-- .user-avatar -->
+                        </div><!-- .col -->
+
+                        <div class="col-12 col-lg-6 order-1 order-lg-2 content-wrap h-100">
+                            <div class="entry-content">
+                                <p>Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.</p>
+                            </div><!-- .entry-content -->
+
+                            <div class="entry-footer">
+                                <h3 class="testimonial-user">James Stephens - <span>University in Cambridge</span></h3>
+                            </div><!-- .entry-footer -->
+                        </div><!-- .col -->
+                    </div><!-- .row -->
+                </div><!-- .container -->
+            </div><!-- .swiper-slide -->
+        </div><!-- .swiper-wrapper -->
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-6 mt-5 mt-lg-0">
+                    <div class="swiper-pagination position-relative flex justify-content-center align-items-center"></div>
+                </div><!-- .col -->
+            </div><!-- .row -->
+        </div><!-- .container -->
+    </div><!-- .testimonial-slider -->
+</section><!-- .testimonial-section -->
+
+
+<section class="about-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-6 align-content-lg-stretch">
+                <header class="heading">
+                    <h2 class="entry-title">О сайте</h2>
+
+                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium.</p>
+                </header><!-- .heading -->
+
+                <div class="entry-content ezuca-stats">
+                    <div class="stats-wrap flex flex-wrap justify-content-lg-between">
+                        <div class="stats-count">
+                            50<span>M+</span>
+                            <p>STUDENTS LEARNING</p>
+                        </div><!-- .stats-count -->
+
+                        <div class="stats-count">
+                            30<span>K+</span>
+                            <p>ACTIVE COURSES</p>
+                        </div><!-- .stats-count -->
+
+                        <div class="stats-count">
+                            340<span>M+</span>
+                            <p>INSTRUCTORS ONLINE</p>
+                        </div><!-- .stats-count -->
+
+                        <div class="stats-count">
+                            20<span>+</span>
+                            <p>Country Reached</p>
+                        </div><!-- .stats-count -->
+                    </div><!-- .stats-wrap -->
+                </div><!-- .ezuca-stats -->
+            </div><!-- .col -->
+
+            <div class="col-12 col-lg-6 flex align-content-center mt-5 mt-lg-0">
+                <div class="ezuca-video position-relative">
+                    <div class="video-play-btn position-absolute">
+                        <img src="{% static 'images/video-icon.png' %}" alt="Video Play">
+                    </div><!-- .video-play-btn -->
+
+                    <img src="{% static 'images/video-screenshot.png' %}" alt="">
+                </div><!-- .ezuca-video -->
+            </div><!-- .col -->
+        </div><!-- .row -->
+    </div><!-- .container -->
+</section><!-- .about-section -->
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}oroz.kg - Регистрация{% endblock %}
+
+{% block content %}
+<div class="page-header-overlay">  
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <header class="entry-header text-white">
+                    <h1 class="entry-title text-center">Регистрация</h1>
+                </header><!-- .entry-header -->
+            </div><!-- .col -->
+        </div><!-- .row -->
+    </div><!-- .container -->
+</div><!-- .page-header-overlay -->
+</div><!-- .hero-content -->
+<div class="container">
+    <div class="breadcrumbs">
+        <ul class="flex flex-wrap align-items-center p-0 m-0">
+            <li><a href="{% url 'main_page' %}"><i class="fa fa-home"></i> Главная</a></li>
+            <li>Регистрация </li>
+        </ul>
+    </div><!-- .breadcrumbs -->
+    <form action="{% url 'registration' %}" method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="mb-3 col-12 col-md-6"><h5>Фамилия и имя <span class="text-danger">*</span></h5> {{ form.name }}</div>
+            <div class="mb-3 col-12 col-md-6"><h5>Придумайте имя пользователя <span class="text-danger">*</span></h5> {{ form.username }}</div>
+            <div class="mb-3 col-12 col-md-6"><h5>Ваш почта <span class="text-danger">*</span></h5> {{ form.email }}</div>
+            <div class="mb-3 col-12 col-md-6"><h5>Ваш номер телефона <span class="text-danger">*</span></h5> {{ form.phone_number }}</div>
+            <div class="mb-3 col-12 col-md-6"><h5>Придумайте пароль <span class="text-danger">*</span></h5> {{ form.password1 }}</div>
+            <div class="mb-3 col-12 col-md-6"><h5>Подтвердите пароль <span class="text-danger">*</span></h5> {{ form.password2 }}</div>
+        </div>
+        <div class="mb-3">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="text-danger"><i class="fa fa-exclamation-circle"></i> {{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <input type="submit" value="Зарегистрироваться" class="btn btn-primary w-100 d-block">
+    </form>
+    </div>
+    <script>
+        let pas1 = document.getElementById('id_password1');
+        let pas2 = document.getElementById('id_password2');
+
+        pas1.classList.add('form-control');
+        pas1.classList.add('w-100');
+        pas2.classList.add('form-control');
+        pas2.classList.add('w-100');
+
+    </script>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}oroz.kg - Расширенный поиск{% endblock %}
+{% block content %}
+<div class="page-header-overlay">  
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <header class="entry-header text-white">
+                    <h1 class="entry-title text-center">Расширенный поиск</h1>
+                </header><!-- .entry-header -->
+            </div><!-- .col -->
+        </div><!-- .row -->
+    </div><!-- .container -->
+</div><!-- .page-header-overlay -->
+</div><!-- .hero-content -->
+<div class="container">
+    <div class="breadcrumbs">
+        <ul class="flex flex-wrap align-items-center p-0 m-0">
+            <li><a href="{% url 'main_page' %}"><i class="fa fa-home"></i> Главная</a></li>
+            <li>Расширенный поиск</li>
+        </ul>
+    </div><!-- .breadcrumbs -->
+    <div>
+        <form action="{% url 'search_with_prametrs' %}" method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <div class=""><h5><lable for="date">Дата:</lable></h5></div>
+                <div><input type="date" class="form-control" name="date" value=""></div>  
+            </div>
+            <div class="mb-3 row mx-0">
+                <div class="col-12 col-md-6">
+                    <div class=""><h5><lable for="author">Автор:</lable></h5></div>
+                    <div>{{ form.author }}</div> 
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class=""><h5><lable for="author">Категории:</lable></h5></div>
+                    <div>{{ form.category }}</div>  
+                </div> 
+            </div>
+            <div class="mb-3"><input type="submit" class="btn btn-primary d-block w-100" value="Поиск"></div>
+        </form>
+    </div>
+</div>
+    <style>
+        #id_author li:first-child{
+            display: none;
+        }
+    </style>
+{% endblock %}

@@ -1,0 +1,8 @@
+{% load news_tags %}
+{% load filters %}
+{% show_categories_by_user request=request as categories %}
+<ul class="p-0 m-0">
+    {% for category in categories %}
+    <li><a href="{% url 'category_view_by_user' category_id=category.1 %}">{{ category.0 }} <span class="badge bg-secondary text-white">{{ category.2 }}</span></a></li>
+    {% endfor %}
+</ul>

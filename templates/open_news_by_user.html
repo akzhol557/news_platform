@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title %}
+  oroz.kg - {{ news.title }}
+{% endblock title %}
+
+{% load static %}
+{% load filters %}
+
+{% block content %}
+    <div class="page-header-overlay">  
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <header class="entry-header text-white">
+                        <h1 class="entry-title text-center">{{ news.title }}</h1>
+                        <div class="entry-meta flex justify-content-center align-items-center">
+                            <div class="post-author text-center"><a href="#" class="text-white">Автор: {{ news.author.name}} </a></div>
+                        </div><!-- .entry-meta -->
+                    </header><!-- .entry-header -->
+                </div><!-- .col -->
+            </div><!-- .row -->
+        </div><!-- .container -->
+    </div><!-- .page-header-overlay -->
+</div><!-- .hero-content -->
+    <div class="container">
+        <div class="breadcrumbs">
+            <ul class="flex flex-wrap align-items-center p-0 m-0">
+                <li><a href="{% url 'main_page' %}"><i class="fa fa-home"></i> Главная</a></li>
+                <li><a href="{% url 'personal_area' %}">Личный кабинет</a></li>
+                <li>{{ news.title }}</li>
+            </ul>
+        </div><!-- .breadcrumbs -->
+        <div class="row">
+            <div class="col-12 offset-lg-1 col-lg-10">
+                <figure class="blog-post-thumbnail position-relative m-0">
+                    <a href="{{ news.image_1.url }}"><img src="{{ news.image_1.url }}" class="w-100" alt=""></a>
+                </figure><!-- .blog-post-thumbnail -->
+            </div><!-- .col -->
+        </div><!-- .row -->
+        <div class="row">
+            <div class="col-12 offset-lg-1 col-lg-1">
+                <div class="post-share">
+                    <ul class="flex flex-wrap align-items-center p-0 m-0">
+                        <li><a href="https://www.facebook.com/sharer.php?u=https://{{ request.get_host }}{{ request.path }}" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="https://vkontakte.ru/share.php?url=https://{{ request.get_host }}{{ request.path }}"  target="_blank"><i class="fa fa-vk"></i></a></li>
+                        <li><a href="https://wa.me/?text=https://{{ request.get_host }}{{ request.path }}" target="_blank"><i class="fa fa-whatsapp"></i></a></li>
+                        <li><a href="https://telegram.me/share/url?url=https://{{ request.get_host }}{{ request.path }}" target="_blank"><i class="fa fa-telegram"></i></a></li>
+                        <li><a href="https://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=https://{{ request.get_host }}{{ request.path }}&st.comments=Новости%из%школы%" target="_blank"><i class="fa fa-odnoklassniki"></i></a></li>
+                        <li><a href="https://twitter.com/intent/tweet?text={{ news.title }}&url=https://{{ request.get_host }}{{ request.path }}" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                    </ul>
+                </div><!-- .post-share -->
+            </div><!-- .col -->
+
+            <div class="col-12 col-lg-8">
+                <div class="single-post-wrap">
+                    <div class="mb-3">
+                        {% for category in news.category.all %}
+                              <a href="{% url 'category_view' category_id=category.id %}" class="text-dark">{{ category }}</a> /
+                            {% endfor %}
+                    </div>
+                    <h4 class="text-center">{{ news.date|date }}</h4>
+                    <p>{{ news.information|marksafe  }}</p>
+                 
+                </div><!-- .single-post-wrap -->
+
+
+                <div class="related-blog-posts">
+                    <header class="entry-heading flex flex-wrap justify-content-between align-items-center">
+                        <h2 class="entry-title">Последние новости</h2>
+
+                        <a href="{% url 'all_news' %}">Смотреть все новости</a>
+                    </header><!-- .entry-heading -->
+
+                    <div class="row mx-m-25">
+                        {% for child_news in two_last_news %}
+                        <div class="col-12 col-lg-6 px-25">
+                            <div class="blog-post-content">
+                                <figure class="blog-post-thumbnail position-relative m-0">
+                                    <a href="{% url 'open_page_news' news_id=child_news.id %}"><img src="{{ child_news.image_1.url }}" alt=""></a>
+
+                                    <div class="posted-date position-absolute">
+                                        <div class="month">{{ child_news.date|date }}</div>
+                                    </div>
+                                </figure><!-- .blog-post-thumbnail -->
+
+                                <div class="blog-post-content-wrap">
+                                    <header class="entry-header">
+                                        <h2 class="entry-title"><a href="{% url 'open_page_news' news_id=child_news.id %}">{{ child_news.title }}</a></h2>
+
+                                        <div class="entry-meta flex flex-wrap align-items-center">
+                                            <div class="post-author"><a href="#">Автор: {{ child_news.author.name}}</a></div>
+                                        </div><!-- .entry-meta -->
+                                    </header><!-- .entry-header -->
+                                </div><!-- .blog-post-content-wrap -->
+                            </div><!-- .blog-post-content -->
+                        </div><!-- .col -->
+                        {% endfor %}
+                    </div><!-- .row -->
+                </div><!-- .related-course -->      
+            </div><!-- .col -->
+        </div><!-- .row -->
+    </div><!-- .container -->
+    <div class="fixed-bottom p-4 text-right"><a href="{% url 'edit_news' pk=news.id %}" class="dark_button">Редактировать <i class="fa fa-pencil-square" aria-hidden="true"></i></a> <a href="{% url 'news_delete' news_id=news.id %}" class="dark_button">Удалить <i class="fa fa-trash" aria-hidden="true"></i></a></div>
+
+{% endblock content %}
+

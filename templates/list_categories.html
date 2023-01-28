@@ -1,0 +1,7 @@
+{% load news_tags %}
+{% show_categories as categories %}
+<ul class="p-0 m-0">
+    {% for category in categories %}
+    <li><a href="{% url 'category_view' category_id=category.id %}">{{ category.title }} <span class="badge bg-secondary text-white">{{ category.cnt }}</span></a></li>
+    {% endfor %}
+</ul>
